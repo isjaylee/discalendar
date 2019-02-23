@@ -72,6 +72,10 @@ body {
   font-size: 10px;
 }
 
+#top p {
+  font-size: 18px;
+}
+
 #lnb {
   position: absolute;
   width: 200px;

@@ -13,16 +13,11 @@
 
     cal = new Calendar('#calendar', {
         defaultView: 'month',
+        taskView: false,
         useCreationPopup: useCreationPopup,
         useDetailPopup: useDetailPopup,
         calendars: CalendarList,
         template: {
-            milestone: function(model) {
-                return '<span class="calendar-font-icon ic-milestone-b"></span> <span style="background-color: ' + model.bgColor + '">' + model.title + '</span>';
-            },
-            allday: function(schedule) {
-                return getTimeTemplate(schedule, true);
-            },
             time: function(schedule) {
                 return getTimeTemplate(schedule, false);
             }
