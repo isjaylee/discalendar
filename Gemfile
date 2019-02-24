@@ -15,6 +15,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-oauth2'
 gem 'http'
+gem 'fast_jsonapi'
 
 group :development, :test do
   gem 'pry'

@@ -11,9 +11,9 @@
     type: 'GET',
     dataType: 'json',
     context: this,
-    success : (data) => {
-      setSchedules(data.events);
-      window.events = data.events;
+    success: (response) => {
+      setSchedules(response.data.attributes.events);
+      window.events = response.data.attributes.events;
     },
   });
   var cal, resizeThrottled;
@@ -402,12 +402,15 @@ function setRenderRangeText() {
 function setSchedules(events) {
   cal.clear();
   generateSchedule(cal.getViewName(), cal.getDateRangeStart(), cal.getDateRangeEnd());
+  
   var schedules = events.map(function (event) {
+    var attributes = event.data.attributes;
+
     var data = {
-      title: event.name,
+      title: attributes.name,
       isAllDay: false,
-      start: event.start,
-      end: event.end,
+      start: attributes.start,
+      end: attributes.end,
       goingDuration: 30,
       comingDuration: 30,
       color: '#ffffff',
@@ -415,21 +418,29 @@ function setSchedules(events) {
       bgColor: '#69BB2D',
       dragBgColor: '#69BB2D',
       borderColor: '#69BB2D',
-      calendarId: event.id,
+      calendarId: attributes.id,
       category: 'time',
       dueDateClass: '',
       customStyle: 'cursor: default;',
       isPending: false,
       isFocused: false,
       isPrivate: false,
-      location: event.location,
-      attendees: ''
+      location: attributes.location,
+      attendees: getParticipants(attributes.participants)
     }
     return {...event, ...data};
   });
 
-    cal.createSchedules(schedules);
-  }
+  cal.createSchedules(schedules);
+}
+
+function getParticipants(participants) {
+  var event_participants = participants.map(function(participant) {
+    return participant.data.attributes.user.data.attributes.email;
+  });
+
+  return event_participants;
+}
 
   function setEventListener() {
     $('#menu-navi').on('click', onClickNavi);
