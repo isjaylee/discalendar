@@ -6,6 +6,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag "application" %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.css">
     <link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui.date-picker/latest/tui-date-picker.css">
@@ -15,6 +16,14 @@
   </head>
 
   <body>
+    <div id="top">
+      <div class="col-md-6">
+        <p>Meta Corp Calendar</p>
+      </div>
+      <div class="col-md-6">
+        <p class="pull-right"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></p>
+      </div>
+    </div>
     <%= yield %>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

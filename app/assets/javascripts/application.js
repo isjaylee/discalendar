@@ -12,8 +12,4 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require tui-calendar
-//= require calendars
-//= require schedules
-//= require default
 //= require_tree .
