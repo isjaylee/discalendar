@@ -4,8 +4,8 @@ class CalendarsController < ApplicationController
 
   def index
     discord.get_servers()
-    @calendar = current_user.calendars&.first
-    data = CalendarSerializer.new(@calendar).serialized_json
+    @calendars = current_user.calendars
+    data = CalendarSerializer.new(@calendars).serialized_json
 
     respond_to do |format|
       format.html { @calendar }

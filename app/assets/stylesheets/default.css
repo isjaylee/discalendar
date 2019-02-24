@@ -72,10 +72,6 @@ body {
   font-size: 10px;
 }
 
-#top div p {
-  font-size: 18px;
-}
-
 #lnb {
   position: absolute;
   width: 200px;
@@ -88,9 +84,9 @@ body {
 
 #right {
   position: absolute;
-  left: 20px;
+  left: 200px;
   top: 49px;
-  right: 20px;
+  right: 0;
   bottom: 0;
 }
 
@@ -166,7 +162,7 @@ body {
 }
 
 #menu {
-  padding: 16px 16px 16px 0;
+  padding: 16px;
 }
 
 #dropdownMenu-calendarType {
@@ -225,9 +221,6 @@ body {
     right: 0;
     bottom: 5px;
     top: 64px;
-    border-left: 1px solid #e5e5e5;
-    border-right: 1px solid #e5e5e5;
-    border-bottom: 1px solid #e5e5e5;
 }
 
 /** custom fontawesome */
