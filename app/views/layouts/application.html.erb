@@ -16,16 +16,7 @@
   </head>
 
   <body>
-    <div id="top">
-      <div class="col-md-6">
-        <p>Meta Corp Calendar</p>
-      </div>
-      <div class="col-md-6">
-        <p class="pull-right"><%= link_to "Sign out", destroy_user_session_path, method: :delete %></p>
-      </div>
-    </div>
     <%= yield %>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script src="https://uicdn.toast.com/tui.code-snippet/latest/tui-code-snippet.js"></script>
     <script type="text/javascript" src="https://uicdn.toast.com/tui.time-picker/latest/tui-time-picker.min.js"></script>
@@ -33,8 +24,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.13/chance.min.js"></script>
     <script src="<%= javascript_path('tui-calendar') %>"></script>
-    <script src="<%= javascript_path('calendars') %>"></script>
-    <script src="<%= javascript_path('schedules') %>"></script>
+    <script src="<%#= javascript_path('calendars') %>"></script>
+    <script src="<%#= javascript_path('schedules') %>"></script>
     <script src="<%= javascript_path('default') %>"></script>
   </body>
 </html>

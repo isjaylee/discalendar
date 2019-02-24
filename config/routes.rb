@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   }
 
   root "calendars#index"
+  resources :calendars
   get "/auth/:provider/callback", to: "sessions#create"
 end
