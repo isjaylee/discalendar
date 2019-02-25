@@ -92,7 +92,7 @@
       var html = [];
       var start = moment(schedule.start.toUTCString());
       if (!isAllDay) {
-          html.push('<strong>' + start.format('HH:mm') + '</strong> ');
+          html.push('<strong>' + start.format('h:mm') + '</strong> ');
       }
       if (schedule.isPrivate) {
           html.push('<span class="calendar-font-icon ic-lock-b"></span>');
