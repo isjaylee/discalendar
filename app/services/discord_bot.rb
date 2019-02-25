@@ -10,7 +10,7 @@ class DiscordBot
   def create_calendar
     # create calendar "Destiny 2"
     name = content.scan(/"([^"]*)"/).flatten.first
-    user.calendars.create(name: name)
+    calendar = user.calendars.new(name: name)
   end
 
   def create_event(discord_message_id)

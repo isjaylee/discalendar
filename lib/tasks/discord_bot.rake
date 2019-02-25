@@ -4,7 +4,11 @@ namespace :discord do
 
     bot.message(start_with: "create calendar") do |event|
       calendar = DiscordBot.new(event.user.username, event.user.id, event.message.content).create_calendar()
-      event.respond "#{calendar.name} calendar created!"
+      if calendar.save
+        event.respond "#{calendar.name} calendar created"
+      else
+        event.respond "#{calendar.errors.messages[:name].first}"
+      end
     end
 
     bot.message(start_with: "create event") do |event|

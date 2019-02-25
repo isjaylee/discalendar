@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2019_02_24_012750) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id", "name"], name: "index_calendars_on_user_id_and_name", unique: true
   end
 
   create_table "events", force: :cascade do |t|
@@ -41,7 +42,7 @@ ActiveRecord::Schema.define(version: 2019_02_24_012750) do
     t.integer "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id", "user_id"], name: "index_participants_on_event_id_and_user_id"
+    t.index ["event_id", "user_id"], name: "index_participants_on_event_id_and_user_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,7 +58,6 @@ ActiveRecord::Schema.define(version: 2019_02_24_012750) do
     t.string "uid"
     t.string "name"
     t.text "image"
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
