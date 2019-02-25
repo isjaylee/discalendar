@@ -335,14 +335,15 @@
     CalendarList.forEach(function(calendar) {
       var schedules = calendar.events.map(function (event) {
         var attributes = event.data.attributes;
+        console.log(attributes.starting);
 
         var data = {
           id: attributes.id,
           calendarId: calendar.id,
           title: attributes.name,
           isAllDay: false,
-          start: attributes.start,
-          end: attributes.end,
+          start: attributes.starting,
+          end: attributes.ending,
           goingDuration: 30,
           comingDuration: 30,
           color: '#ffffff',
@@ -369,7 +370,7 @@
 
   function getParticipants(participants) {
     var event_participants = participants.map(function(participant) {
-      return participant.data.attributes.user.data.attributes.email;
+      return participant.data.attributes.user.data.attributes.username;
     });
 
     return event_participants;

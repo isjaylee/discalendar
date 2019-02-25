@@ -25,10 +25,11 @@ ActiveRecord::Schema.define(version: 2019_02_24_012750) do
 
   create_table "events", force: :cascade do |t|
     t.string "name"
-    t.integer "recurring_type"
     t.string "location"
-    t.datetime "start"
-    t.datetime "end"
+    t.integer "recurring_type"
+    t.datetime "starting"
+    t.datetime "ending"
+    t.string "discord_message_identifier"
     t.integer "user_id"
     t.integer "calendar_id"
     t.datetime "created_at", null: false
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 2019_02_24_012750) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
+    t.string "username", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -57,6 +59,7 @@ ActiveRecord::Schema.define(version: 2019_02_24_012750) do
     t.text "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
 end

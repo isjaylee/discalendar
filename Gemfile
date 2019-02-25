@@ -16,6 +16,7 @@ gem 'omniauth'
 gem 'omniauth-oauth2'
 gem 'http'
 gem 'fast_jsonapi'
+gem 'discordrb'
 
 group :development, :test do
   gem 'pry'
