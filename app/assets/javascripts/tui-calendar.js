@@ -17417,11 +17417,11 @@ module.exports = ScheduleViewModel;
  * "month" prefix is for monthly view.
  */
 var theme = {
-    'common.border': '1px solid #e5e5e5',
-    'common.backgroundColor': 'white',
-    'common.holiday.color': '#ff4040',
-    'common.saturday.color': '#333',
-    'common.dayname.color': '#333',
+    'common.border': '1px solid #202225',
+    'common.backgroundColor': '#35353C',
+    'common.holiday.color': '#ececee',
+    'common.saturday.color': '#ececee',
+    'common.dayname.color': '#ececee',
     'common.today.color': '#333',
 
     // creation guide style
@@ -17433,14 +17433,14 @@ var theme = {
     'month.dayname.borderLeft': 'none',
     'month.dayname.paddingLeft': '10px',
     'month.dayname.paddingRight': '0',
-    'month.dayname.backgroundColor': 'inherit',
+    'month.dayname.backgroundColor': '#202225',
     'month.dayname.fontSize': '12px',
     'month.dayname.fontWeight': 'normal',
     'month.dayname.textAlign': 'left',
 
     // month day grid cell 'day'
-    'month.holidayExceptThisMonth.color': 'rgba(255, 64, 64, 0.4)',
-    'month.dayExceptThisMonth.color': 'rgba(51, 51, 51, 0.4)',
+    'month.holidayExceptThisMonth.color': 'rgba(163,163,172,0.8)',
+    'month.dayExceptThisMonth.color': 'rgba(163,163,172,0.8)',
     'month.weekend.backgroundColor': 'inherit',
     'month.day.fontSize': '14px',
 
@@ -17470,7 +17470,7 @@ var theme = {
     'week.dayname.paddingLeft': '0',
     'week.dayname.backgroundColor': 'inherit',
     'week.dayname.textAlign': 'left',
-    'week.today.color': 'inherit',
+    'week.today.color': '#ececee',
     'week.pastDay.color': '#bbb',
 
     // week vertical panel 'vpanel'
@@ -17823,7 +17823,7 @@ var themeConfig = {
     'month.moreView.paddingBottom': '17px',
     'month.moreViewTitle.height': '44px',
     'month.moreViewTitle.marginBottom': '12px',
-    'month.moreViewTitle.backgroundColor': 'inherit',
+    'month.moreViewTitle.backgroundColor': 'white',
     'month.moreViewTitle.borderBottom': 'none',
     'month.moreViewTitle.padding': '12px 17px 0 17px',
     'month.moreViewList.padding': '0 17px',
@@ -18776,6 +18776,10 @@ WeekdayInMonth.prototype.render = function(viewModel) {
         container,
         true
     );
+
+    $('.tui-full-calendar-extra-date').css('background-color', '#2C2C31')
+    $('.tui-full-calendar-weekday-schedule-title').css('color', '#ececee')
+    $('.tui-full-calendar-month-week-item .tui-full-calendar-today .tui-full-calendar-weekday-grid-date-decorator').css('background', '#7289DA')
 };
 
 WeekdayInMonth.prototype._beforeDestroy = function() {

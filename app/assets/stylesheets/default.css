@@ -6,6 +6,12 @@ body {
   font-size: 12px;
 }
 
+.tui-full-calendar-layout {
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
 /**  custom bootstrap - start */
 .btn {
   border-radius: 25px;
@@ -67,9 +73,10 @@ body {
 
 #top {
   height: 49px;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid rgba(163,163,172,0.2);
   padding: 16px;
   font-size: 10px;
+  background: #202225;
 }
 
 #lnb {
@@ -77,9 +84,9 @@ body {
   width: 200px;
   top: 49px;
   bottom: 0;
-  border-right: 1px solid #d5d5d5;
+  border-right: 1px solid rgba(163,163,172,0.2);
   padding: 12px 10px;
-  background: #fafafa;
+  background: #2F3136;
 }
 
 #right {
@@ -88,11 +95,17 @@ body {
   top: 49px;
   right: 0;
   bottom: 0;
+  background: #202225;
+}
+
+#right #renderRange {
+  color: #ececee;
 }
 
 #lnb label {
   margin-bottom: 0;
   cursor: pointer;
+  color: #fff;
 }
 
 .lnb-new-schedule {
@@ -216,11 +229,11 @@ body {
 }
 
 #calendar {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 5px;
-    top: 64px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  top: 64px;
 }
 
 /** custom fontawesome */
