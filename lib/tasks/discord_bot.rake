@@ -2,7 +2,7 @@ namespace :discord do
   task run: :environment do
     bot = Discordrb::Bot.new(token: "NTQ4OTUxMzM0Nzc1MjkxOTM2.D1Ro5Q.O9M06sm2jQaOGoi-zCujhrBnTh4")
 
-    bot.message(start_with: "create calendar") do |event|
+    bot.message(start_with: "!create calendar") do |event|
       calendar = DiscordBot.new(event.user.username, event.user.id, event.message.content).create_calendar()
       if calendar.save
         event.respond "#{calendar.name} calendar created"
@@ -11,7 +11,7 @@ namespace :discord do
       end
     end
 
-    bot.message(start_with: "create event") do |event|
+    bot.message(start_with: "!create event") do |event|
       info = ParseHelper.strings_in_quotes(event.message.content)
       starting =
         DateTime.strptime(info[2], '%m/%d/%Y %I:%M %p %Z')
@@ -31,6 +31,7 @@ namespace :discord do
     end
 
     bot.reaction_add do |event|
+      binding.pry
       participant = DiscordBot.new(event.user.username, event.user.id, event.message.content).create_participant(event.message.id)
     end
 
