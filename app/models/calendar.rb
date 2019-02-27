@@ -1,8 +1,16 @@
 class Calendar < ApplicationRecord
   belongs_to :user
   has_many :events
+  has_many :members
+  has_many :users, through: :members
 
   validate :user_has_existing_calendar_name
+
+  after_create :add_owner_as_member
+
+  def add_owner_as_member
+    self.users << user
+  end
 
   private
     def user_has_existing_calendar_name

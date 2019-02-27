@@ -10,7 +10,12 @@ class DiscordBot
 
   def create_calendar
     # !create calendar
-    calendar = user.calendars.new(name: @server_name, discord_identifier: @server_id)
+    user.calendars.new(name: @server_name, discord_identifier: @server_id)
+  end
+
+  def join_calendar
+    # !join calendar
+    calendar.users << user unless calendar.users.include?(user)
   end
 
   def create_event(discord_message_id, content)
@@ -28,12 +33,13 @@ class DiscordBot
       ending: ending
     }
 
-    event = calendar.events.create(params)
+    calendar.events.create(params)
   end
 
   def create_participant(discord_message_id)
     event = get_event(discord_message_id)
     user.events << event unless user.events.include?(event)
+    user.calendars << calendar unless user.calendars.include?(calendar)
   end
 
   def remove_participant(discord_message_id)
@@ -53,6 +59,6 @@ class DiscordBot
     end
 
     def calendar
-      user.calendars.find_by(discord_identifier: @server_id)
+      Calendar.find_by(discord_identifier: @server_id)
     end
 end

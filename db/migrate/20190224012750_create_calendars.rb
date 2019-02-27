@@ -28,7 +28,15 @@ class CreateCalendars < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
+    create_table :members do |t|
+      t.integer :user_id
+      t.integer :calendar_id
+
+      t.timestamps
+    end
+
     add_index :calendars, [:user_id, :name], unique: true
     add_index :participants, [:event_id, :user_id], unique: true
+    add_index :members, [:calendar_id, :user_id], unique: true
   end
 end

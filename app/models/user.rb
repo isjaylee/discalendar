@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :calendars
   has_many :participants
   has_many :events, through: :participants
+  has_many :members
+  has_many :events, through: :members
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid, username: auth.extra.raw_info.username).first_or_create do |user|

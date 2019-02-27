@@ -25,16 +25,7 @@ class Calendar extends React.Component {
 
   renderCalendars() {
     const calendarsList = [];
-
-    this.props.calendars.your_calendars.data.map((calendar) => {
-      calendarsList.push(
-        <li key={calendar.id}>
-          {calendar.attributes.name}
-        </li>
-      )
-    });
-
-    this.props.calendars.participated_calendars.data.map((calendar) => {
+    this.props.calendars.map((calendar) => {
       calendarsList.push(
         <li key={calendar.id}>
           {calendar.attributes.name}
@@ -81,7 +72,7 @@ class Calendar extends React.Component {
         formattedDate = dateFns.format(day, dateFormat);
         let dayEvents = [];
 
-        this.props.calendars.your_calendars.data.forEach(function(calendar) {
+        this.props.calendars.forEach(function(calendar) {
           let calEvent = _.filter(calendar.attributes.events, function(event) {
             let eventDate = dateFns.format(event.data.attributes.starting, "M D YY");
             let cellDate = dateFns.format(day, "M D YY");
@@ -127,7 +118,7 @@ class Calendar extends React.Component {
   };
 
   render() {
-    if (!this.props.calendars.your_calendars) {
+    if (_.isEmpty(this.props.calendars)) {
       return <div>Loading</div>;
     }
 
@@ -155,7 +146,7 @@ class Calendar extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { calendars: state.calendars };
+  return { calendars: state.calendars.data };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(

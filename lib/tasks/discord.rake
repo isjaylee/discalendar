@@ -16,6 +16,11 @@ namespace :discord do
       end
     end
 
+    bot.message(start_with: "!join calendar") do |event|
+      calendar = DiscordBot.new(event.server.name, event.server.id, event.user.username, event.user.id).join_calendar()
+      event.respond "You've joined the calendar!"
+    end
+
     bot.message(start_with: "!create event") do |event|
       if event.user == event.server.owner
         info = ParseHelper.strings_in_quotes(event.message.content)

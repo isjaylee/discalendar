@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(version: 2019_02_24_012750) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "members", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "calendar_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_id", "user_id"], name: "index_members_on_calendar_id_and_user_id", unique: true
+  end
+
   create_table "participants", force: :cascade do |t|
     t.integer "user_id"
     t.integer "event_id"

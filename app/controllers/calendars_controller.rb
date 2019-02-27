@@ -4,11 +4,8 @@ class CalendarsController < ApplicationController
 
   def index
     discord.get_servers()
-    @calendars = current_user.calendars
-    @participated_calendars = Calendar.joins({events: :participants}).where(events: {participants: {user: current_user}}).where.not(user: current_user)
-    calendars_data = CalendarSerializer.new(@calendars).serialized_json
-    participated_calendars_data = CalendarSerializer.new(@participated_calendars).serialized_json
-    data = { your_calendars: JSON.parse(calendars_data), participated_calendars: JSON.parse(participated_calendars_data) }
+    @calendars = Calendar.joins(:members).where(members: {user: current_user})
+    data = CalendarSerializer.new(@calendars).serialized_json
 
     respond_to do |format|
       format.html { @calendar }
