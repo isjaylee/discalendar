@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { bindActionCreators }     from 'redux';
+import { fetchCalendars } from '../../actions/Calendar'
 import dateFns from "date-fns";
 
 import Header from '../Calendar/Header';
@@ -8,6 +11,10 @@ class Calendar extends React.Component {
     currentMonth: new Date(),
     selectedDate: new Date()
   };
+
+  componentDidMount() {
+    this.props.fetchCalendars()
+  }
 
   renderDays() {
     const dateFormat = "dddd";
@@ -114,4 +121,11 @@ class Calendar extends React.Component {
   }
 }
 
-export default Calendar;
+const mapStateToProps = state => {
+  return { calendars: state.calendar };
+};
+
+export default connect(
+  mapStateToProps,
+  { fetchCalendars }
+)(Calendar);
