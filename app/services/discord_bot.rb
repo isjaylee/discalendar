@@ -1,27 +1,34 @@
 class DiscordBot
-  attr_reader :username, :uid, :content
+  attr_reader :server_name, :server_id, :username, :uid, :content
 
-  def initialize(username, uid, content)
+  def initialize(server_name, server_id, username, uid)
+    @server_name = server_name
+    @server_id = server_id
     @username = username
     @uid = uid
-    @content = content
   end
 
   def create_calendar
-    # create calendar "Destiny 2"
-    name = content.scan(/"([^"]*)"/).flatten.first
-    calendar = user.calendars.new(name: name)
+    # !create calendar
+    calendar = user.calendars.new(name: @server_name, discord_identifier: @server_id)
   end
 
   def create_event(discord_message_id)
-    # create event "Destiny 2" "Raid" "02/24/2019 9:00PM CST"
+    # !create event "Raid" "02/24/2019 9:00PM CST"
     info = content.scan(/"([^"]*)"/).flatten
-    calendar_name = info[0]
-    event_name = info[1]
-    starting = DateTime.strptime(info[2], '%m/%d/%Y %I:%M %p %Z')
-    ending = DateTime.strptime(info[3], '%m/%d/%Y %I:%M %p') if info[3]
-    calendar = user.calendars.find_by(name: calendar_name)
-    calendar.events.create(name: event_name, starting: starting, ending: ending, discord_message_identifier: discord_message_id)
+    event_name = info[0]
+    starting = DateTime.strptime(info[1], '%m/%d/%Y %I:%M %p %Z')
+    ending = DateTime.strptime(info[2], '%m/%d/%Y %I:%M %p') if info[2]
+
+    params = {
+      user: user,
+      name: event_name,
+      discord_message_identifier: discord_message_id,
+      starting: starting,
+      ending: ending
+    }
+
+    event = calendar.events.create(params)
   end
 
   def create_participant(discord_message_id)
@@ -43,5 +50,9 @@ class DiscordBot
 
     def get_event(discord_message_id)
       Event.find_by(discord_message_identifier: discord_message_id)
+    end
+
+    def calendar
+      user.calendars.find_by(discord_identifier: @server_id)
     end
 end
