@@ -24,7 +24,7 @@ class Cell extends Component {
                   "h:mmA"
                 )
                 let name = attrs.name;
-                return <li key={event}>{time} {name}</li>
+                return <li key={event.data.id}>{time} {name}</li>
               }
             })}
           </ul>

@@ -23,22 +23,6 @@ class Calendar extends React.Component {
     this.props.fetchCalendars()
   }
 
-  // componentDidUpdate() {
-  //   this.props.calendars.forEach((calendar) => {
-  //     calendar.attributes.events.forEach((event) => {
-  //       let eventDay = new Date(event.data.attributes.starting)
-  //       let abc = _.filter(this.days, function(day){
-  //         if (day !== null ) {
-  //           console.log(dateFns.isSameDay(eventDay, day.props.day));
-  //         }
-  //         let cellDay = new Date(day.props.day)
-  //         return dateFns.isSameDay(eventDay, cellDay)
-  //         return item.category.parent === 'Food';
-  //       });
-  //     });
-  //   });
-  // }
-
   renderDays() {
     const dateFormat = "dddd";
     const days = [];
@@ -74,7 +58,8 @@ class Calendar extends React.Component {
       for (let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat);
         let dayEvents = [];
-        this.props.calendars.forEach(function(calendar) {
+
+        this.props.calendars.your_calendars.data.forEach(function(calendar) {
           let calEvent = _.filter(calendar.attributes.events, function(event) {
             let eventDate = dateFns.format(event.data.attributes.starting, "M D YY");
             let cellDate = dateFns.format(day, "M D YY");
@@ -120,6 +105,10 @@ class Calendar extends React.Component {
   };
 
   render() {
+    if (!this.props.calendars.your_calendars) {
+      return <div>Loading</div>;
+    }
+
     return (
       <div>
         <div className="sidebar">
@@ -127,7 +116,7 @@ class Calendar extends React.Component {
             <p>Calendars</p>
           </div>
           <ul>
-          {this.props.calendars.map((calendar) => {
+          {this.props.calendars.your_calendars.data.map((calendar) => {
             return(
               <li key={calendar.id}>
                 {calendar.attributes.name}
@@ -150,7 +139,7 @@ class Calendar extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { calendars: state.calendar };
+  return { calendars: state.calendars };
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators(

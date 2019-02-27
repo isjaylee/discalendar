@@ -3,7 +3,7 @@ import { combineReducers }        from 'redux';
 import CalendarsReducer           from './Calendar';
 
 const rootReducer = combineReducers({
-  calendar: CalendarsReducer
+  calendars: CalendarsReducer
 });
 
 export default rootReducer;
