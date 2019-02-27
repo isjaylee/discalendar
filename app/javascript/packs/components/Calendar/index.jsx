@@ -76,8 +76,8 @@ class Calendar extends React.Component {
         let dayEvents = [];
         this.props.calendars.forEach(function(calendar) {
           let calEvent = _.filter(calendar.attributes.events, function(event) {
-            let eventDate = dateFns.getDate(event.data.attributes.starting);
-            let cellDate = dateFns.getDate(day);
+            let eventDate = dateFns.format(event.data.attributes.starting, "M D YY");
+            let cellDate = dateFns.format(day, "M D YY");
             return eventDate === cellDate;
           });
           dayEvents.push(calEvent);
