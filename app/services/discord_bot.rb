@@ -13,7 +13,7 @@ class DiscordBot
     calendar = user.calendars.new(name: @server_name, discord_identifier: @server_id)
   end
 
-  def create_event(discord_message_id)
+  def create_event(discord_message_id, content)
     # !create event "Raid" "02/24/2019 9:00PM CST"
     info = content.scan(/"([^"]*)"/).flatten
     event_name = info[0]

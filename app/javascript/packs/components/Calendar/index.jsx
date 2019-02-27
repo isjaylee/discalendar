@@ -23,6 +23,28 @@ class Calendar extends React.Component {
     this.props.fetchCalendars()
   }
 
+  renderCalendars() {
+    const calendarsList = [];
+
+    this.props.calendars.your_calendars.data.map((calendar) => {
+      calendarsList.push(
+        <li key={calendar.id}>
+          {calendar.attributes.name}
+        </li>
+      )
+    });
+
+    this.props.calendars.participated_calendars.data.map((calendar) => {
+      calendarsList.push(
+        <li key={calendar.id}>
+          {calendar.attributes.name}
+        </li>
+      )
+    });
+
+    return calendarsList;
+  }
+
   renderDays() {
     const dateFormat = "dddd";
     const days = [];
@@ -116,13 +138,7 @@ class Calendar extends React.Component {
             <p>Calendars</p>
           </div>
           <ul>
-          {this.props.calendars.your_calendars.data.map((calendar) => {
-            return(
-              <li key={calendar.id}>
-                {calendar.attributes.name}
-              </li>
-            )
-          })}
+            {this.renderCalendars()}
           </ul>
         </div>
         <div className="calendar">
