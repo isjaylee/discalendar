@@ -1,12 +1,19 @@
-import React from "react";
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators }     from 'redux';
-import { fetchCalendars } from '../../actions/Calendar'
-import dateFns from "date-fns";
+import { fetchCalendars } from '../../actions/Calendar';
+import dateFns from 'date-fns';
+import Cell from './cell';
+import _ from 'lodash';
 
 import Header from '../Calendar/Header';
 
 class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.days = [];
+  }
+
   state = {
     currentMonth: new Date(),
     selectedDate: new Date()
@@ -15,6 +22,22 @@ class Calendar extends React.Component {
   componentDidMount() {
     this.props.fetchCalendars()
   }
+
+  // componentDidUpdate() {
+  //   this.props.calendars.forEach((calendar) => {
+  //     calendar.attributes.events.forEach((event) => {
+  //       let eventDay = new Date(event.data.attributes.starting)
+  //       let abc = _.filter(this.days, function(day){
+  //         if (day !== null ) {
+  //           console.log(dateFns.isSameDay(eventDay, day.props.day));
+  //         }
+  //         let cellDay = new Date(day.props.day)
+  //         return dateFns.isSameDay(eventDay, cellDay)
+  //         return item.category.parent === 'Food';
+  //       });
+  //     });
+  //   });
+  // }
 
   renderDays() {
     const dateFormat = "dddd";
@@ -50,29 +73,30 @@ class Calendar extends React.Component {
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {
         formattedDate = dateFns.format(day, dateFormat);
-        const cloneDay = day;
+        let dayEvents = [];
+        this.props.calendars.forEach(function(calendar) {
+          let calEvent = _.filter(calendar.attributes.events, function(event) {
+            let eventDate = dateFns.getDate(event.data.attributes.starting);
+            let cellDate = dateFns.getDate(day);
+            return eventDate === cellDate;
+          });
+          dayEvents.push(calEvent);
+        });
+
         days.push(
-          <div
-            className={`col cell ${
-              !dateFns.isSameMonth(day, monthStart)
-                ? "disabled"
-                : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
-            }`}
+          <Cell
+            ref={(day) => { this.days.push(day) }}
+            disabled={!dateFns.isSameMonth(day, monthStart) ? "disabled" : dateFns.isSameDay(day, selectedDate) ? "selected" : ""}
             key={day}
-            onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
-          >
-            <span className="number">{formattedDate}</span>
-            <div className="cell-event-title">
-              <ul>
-                <li>9:00PM Raid</li>
-                <li>10:00PM Nightfall</li>
-                <li>10:00PM Nightfall</li>
-              </ul>
-            </div>
-          </div>
+            formattedDate={formattedDate}
+            day={day}
+            events={dayEvents.flat()}
+            clickDay={this.onDateClick}
+          />
         );
         day = dateFns.addDays(day, 1);
       }
+
       rows.push(
         <div className="row" key={day}>
           {days}
@@ -103,9 +127,13 @@ class Calendar extends React.Component {
             <p>Calendars</p>
           </div>
           <ul>
-            <li>
-              <p>Hello</p>
-            </li>
+          {this.props.calendars.map((calendar) => {
+            return(
+              <li key={calendar.id}>
+                {calendar.attributes.name}
+              </li>
+            )
+          })}
           </ul>
         </div>
         <div className="calendar">
@@ -125,7 +153,12 @@ const mapStateToProps = state => {
   return { calendars: state.calendar };
 };
 
+const mapDispatchToProps = dispatch => bindActionCreators(
+  { fetchCalendars },
+  dispatch
+);
+
 export default connect(
   mapStateToProps,
-  { fetchCalendars }
+  mapDispatchToProps
 )(Calendar);
