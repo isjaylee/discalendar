@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div id="logo">
               <span className="icon">date_range</span>
               <span>
-                Dis<b>calendar</b>
+                Discalendar<b>Beta</b>
               </span>
             </div>
           </header>
