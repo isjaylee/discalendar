@@ -107,7 +107,10 @@ class Calendar extends React.Component {
   }
 
   onDateClick = (day, events) => {
-    this.createPopup(day, events);
+    if (events.length) {
+      this.createPopup(day, events);
+    }
+
     this.setState({
       selectedDate: day
     });
