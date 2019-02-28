@@ -5,7 +5,14 @@ namespace :discord do
 
     bot.message(start_with: "!create calendar") do |event|
       if event.user == event.server.owner
-        calendar = DiscordBot.new(event.server.name, event.server.id, event.user.username, event.user.id).create_calendar()
+        calendar = DiscordBot.new(
+          event.server.name,
+          event.server.id,
+          event.user.username,
+          event.user.id,
+          event.user.discriminator
+        ).create_calendar()
+
         if calendar.save
           event.respond "#{calendar.name} calendar created"
         else
@@ -17,7 +24,14 @@ namespace :discord do
     end
 
     bot.message(start_with: "!join calendar") do |event|
-      calendar = DiscordBot.new(event.server.name, event.server.id, event.user.username, event.user.id).join_calendar()
+      calendar = DiscordBot.new(
+        event.server.name,
+        event.server.id,
+        event.user.username,
+        event.user.id,
+        event.user.discriminator
+      ).join_calendar()
+
       event.respond "You've joined the calendar!"
     end
 
@@ -37,7 +51,14 @@ namespace :discord do
         embed = Discordrb::Webhooks::Embed.new(colour: "#69BB2D", fields: fields)
         message = event.respond("#{info[0]} event created!", false, embed)
 
-        DiscordBot.new(event.server.name, event.server.id, event.user.username, event.user.id).create_event(message.id, event.message.content)
+        DiscordBot.new(
+          event.server.name,
+          event.server.id,
+          event.user.username,
+          event.user.id,
+          event.user.discriminator
+        ).create_event(message.id, event.message.content)
+
         Discordrb::API::Channel.create_reaction(bot.token, message.channel.id, message.id, "✅")
       else
         event.respond "Only the owner of the server can create an event."
@@ -45,11 +66,23 @@ namespace :discord do
     end
 
     bot.reaction_add do |event|
-      participant = DiscordBot.new(event.server.name, event.server.id, event.user.username, event.user.id).create_participant(event.message.id)
+      participant = DiscordBot.new(
+        event.server.name,
+        event.server.id,
+        event.user.username,
+        event.user.id,
+        event.user.discriminator
+      ).create_participant(event.message.id)
     end
 
     bot.reaction_remove do |event|
-      participant = DiscordBot.new(event.server.name, event.server.id, event.user.username, event.user.id).remove_participant(event.message.id)
+      participant = DiscordBot.new(
+        event.server.name,
+        event.server.id,
+        event.user.username,
+        event.user.id,
+        event.user.discriminator
+      ).remove_participant(event.message.id)
     end
 
     bot.run

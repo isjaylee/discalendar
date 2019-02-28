@@ -3,7 +3,7 @@ import dateFns from 'date-fns';
 
 class Cell extends Component {
   handleClickedDay = () => {
-    this.props.clickDay(this.props.day)
+    this.props.clickDay(this.props.day, this.props.events);
   }
 
   render() {

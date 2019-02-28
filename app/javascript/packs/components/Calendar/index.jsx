@@ -5,6 +5,7 @@ import { fetchCalendars } from '../../actions/Calendar';
 import dateFns from 'date-fns';
 import Cell from './cell';
 import _ from 'lodash';
+import Popup from 'react-popup';
 
 import Header from '../Calendar/Header';
 
@@ -105,7 +106,8 @@ class Calendar extends React.Component {
     return <div className="body">{rows}</div>;
   }
 
-  onDateClick = day => {
+  onDateClick = (day, events) => {
+    this.createPopup(day, events);
     this.setState({
       selectedDate: day
     });
@@ -116,6 +118,38 @@ class Calendar extends React.Component {
       currentMonth: month
     });
   };
+
+  createPopup = (day, events) => {
+    Popup.create({
+      title: `Events on ${dateFns.format(day, 'MMMM DD, YYYY')}`,
+      content: (
+        <div>
+          {events.map(function(event){
+            let attrs = event.data.attributes;
+            let time = dateFns.format(new Date(attrs.starting), 'h:mmA');
+            let participants = attrs.participants.map(function(participant){
+              return participant.data.attributes.user.data.attributes.username ;
+            })
+
+            let participantList = participants.length ? participants.join(', ') : "None"
+
+            return (
+              <div key={event.data.id}>
+                <p><strong>{attrs.name} at {time}</strong></p>
+                <p>
+                  Going: {participantList}
+                </p>
+              </div>
+            )
+          })}
+        </div>
+      ),
+      className: 'alert',
+      buttons: {
+        left: ['cancel']
+      },
+    });
+  }
 
   render() {
     if (_.isEmpty(this.props.calendars)) {
@@ -132,6 +166,7 @@ class Calendar extends React.Component {
             {this.renderCalendars()}
           </ul>
         </div>
+        <Popup />
         <div className="calendar">
           <Header
             currentMonth={this.state.currentMonth}

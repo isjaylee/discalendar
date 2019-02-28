@@ -13,11 +13,15 @@ class User < ApplicationRecord
   has_many :events, through: :members
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid, username: auth.extra.raw_info.username).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      user.name = auth.info.name
-      user.image = auth.info.image
-    end
+    username = "#{auth.extra.raw_info.username}#{auth.extra.raw_info.discriminator}"
+    user = where(uid: auth.uid).first_or_create
+    user.update_attributes(
+      username: username,
+      email: auth.info.email,
+      name: auth.info.name,
+      password: Devise.friendly_token[0, 20],
+      provider: auth.provider
+    )
+    user
   end
 end

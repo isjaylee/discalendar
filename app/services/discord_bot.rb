@@ -1,11 +1,12 @@
 class DiscordBot
-  attr_reader :server_name, :server_id, :username, :uid, :content
+  attr_reader :server_name, :server_id, :username, :uid, :discriminator
 
-  def initialize(server_name, server_id, username, uid)
+  def initialize(server_name, server_id, username, uid, discriminator)
     @server_name = server_name
     @server_id = server_id
-    @username = username
+    @username = "#{username}#{discriminator}"
     @uid = uid
+    @discriminator = discriminator
   end
 
   def create_calendar
@@ -38,8 +39,8 @@ class DiscordBot
 
   def create_participant(discord_message_id)
     event = get_event(discord_message_id)
-    user.events << event unless user.events.include?(event)
-    user.calendars << calendar unless user.calendars.include?(calendar)
+    event.users << user unless event.users.include?(user)
+    calendar.users << user unless calendar.users.include?(user)
   end
 
   def remove_participant(discord_message_id)
@@ -49,9 +50,12 @@ class DiscordBot
 
   private
     def user
-      User.where(provider: "discord", uid: uid, username: username).first_or_create do |user|
-        user.password = Devise.friendly_token[0, 20]
-      end
+      user = User.where(uid: @uid).first_or_create
+      user.update_attributes(
+        username: @username,
+        provider: "discord"
+      )
+      user
     end
 
     def get_event(discord_message_id)
