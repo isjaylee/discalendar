@@ -2,7 +2,7 @@ class CreateCalendars < ActiveRecord::Migration[5.2]
   def change
     create_table :calendars do |t|
       t.string :name
-      t.string :discord_identifier
+      t.string :discord_identifier, unqiue: true
       t.integer :user_id
 
       t.timestamps
@@ -35,7 +35,6 @@ class CreateCalendars < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :calendars, [:user_id, :name], unique: true
     add_index :participants, [:event_id, :user_id], unique: true
     add_index :members, [:calendar_id, :user_id], unique: true
   end

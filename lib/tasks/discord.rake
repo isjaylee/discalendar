@@ -3,6 +3,8 @@ namespace :discord do
     # https://discordapp.com/oauth2/authorize?client_id=548951334775291936&scope=bot&permissions=150592
     bot = Discordrb::Bot.new(token: "NTQ4OTUxMzM0Nzc1MjkxOTM2.D1Ro5Q.O9M06sm2jQaOGoi-zCujhrBnTh4")
 
+    WHITE_CHECK_MARK = "\u2705".force_encoding("utf-8").freeze
+
     bot.message(start_with: "!create calendar") do |discord_event|
       if discord_event.user == discord_event.server.owner
         calendar = DiscordBot.new(
@@ -59,13 +61,13 @@ namespace :discord do
           discord_event.user.discriminator
         ).create_event(message.id, discord_event.message.content)
 
-        Discordrb::API::Channel.create_reaction(bot.token, message.channel.id, message.id, "<U+2705>")
+        Discordrb::API::Channel.create_reaction(bot.token, message.channel.id, message.id, WHITE_CHECK_MARK)
       else
         discord_event.respond "Only the owner of the server can create an event."
       end
     end
 
-    bot.reaction_add(emoji: "\u2705".force_encoding("utf-8")) do |discord_event|
+    bot.reaction_add(emoji: WHITE_CHECK_MARK) do |discord_event|
       event = Event.where(discord_message_identifier: discord_event.message.id)
       if event
         participant = DiscordBot.new(

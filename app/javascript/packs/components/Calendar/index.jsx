@@ -123,7 +123,7 @@ class Calendar extends React.Component {
     Popup.create({
       title: `Events on ${dateFns.format(day, 'MMMM DD, YYYY')}`,
       content: (
-        <div>
+        <div className="event-list">
           {events.map(function(event){
             let attrs = event.data.attributes;
             let time = dateFns.format(new Date(attrs.starting), 'h:mmA');
@@ -135,7 +135,9 @@ class Calendar extends React.Component {
 
             return (
               <div key={event.data.id}>
-                <p><strong>{attrs.name} at {time}</strong></p>
+                <p>
+                  <strong>{attrs.name} at {time}</strong> - <small>{attrs.calendar.name}</small>
+                </p>
                 <p>
                   Going: {participantList}
                 </p>

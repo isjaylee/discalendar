@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2019_02_24_012750) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id", "name"], name: "index_calendars_on_user_id_and_name", unique: true
   end
 
   create_table "events", force: :cascade do |t|
