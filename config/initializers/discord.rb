@@ -6,7 +6,7 @@ require 'uri'
 module OmniAuth
   module Strategies
     class Discord < OmniAuth::Strategies::OAuth2
-      DEFAULT_SCOPE = "email"
+      DEFAULT_SCOPE = "identify"
 
       option :client_options, {
         :site          => 'https://discordapp.com/api',
