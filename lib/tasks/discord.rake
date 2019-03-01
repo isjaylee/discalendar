@@ -1,6 +1,6 @@
 namespace :discord do
   task run: :environment do
-    # https://discordapp.com/oauth2/authorize?client_id=548951334775291936&scope=bot&permissions=150592
+    # https://discordapp.com/oauth2/authorize?client_id=548951334775291936&scope=bot&permissions=448576
     bot = Discordrb::Bot.new(token: "NTQ4OTUxMzM0Nzc1MjkxOTM2.D1Ro5Q.O9M06sm2jQaOGoi-zCujhrBnTh4")
 
     WHITE_CHECK_MARK = "\u2705".force_encoding("utf-8").freeze
