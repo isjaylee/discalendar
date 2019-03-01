@@ -31,6 +31,7 @@
   --border-color: rgba(255,255,255,0.1);
   --bg-color: #222225;
   --neutral-color: #fff;
+  --alert-color: #ee5f5b;
 }
 
 
@@ -59,6 +60,12 @@ header {
   width: 100%;
   padding: 0.5em 0;
   border-bottom: 1px solid var(--border-color);
+  a {
+    font-size: 18px;
+    line-height: 1;
+    text-decoration: none;
+    color: var(--main-color);
+  }
 }
 
 header #logo {
@@ -79,6 +86,36 @@ main {
   margin-bottom: 1em;
 }
 
+.main-color {
+  color: var(--main-color);
+}
+
+.alert-color {
+  color: var(--alert-color);
+}
+
+.page {
+  margin-top: 3em;
+  .page-widget-header {
+    margin-bottom: 1em;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .top-area {
+    margin-bottom: 3em;
+  }
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+  li {
+    margin: 1em 0;
+  }
+}
+
+.pull-right {
+  float: right;
+}
 
 /* GRID */
 

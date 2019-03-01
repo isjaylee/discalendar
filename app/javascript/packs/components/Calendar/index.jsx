@@ -158,7 +158,7 @@ class Calendar extends React.Component {
 
   render() {
     if (_.isEmpty(this.props.calendars)) {
-      return <div>Loading</div>;
+      return <div>Create a calendar or join one!</div>;
     }
 
     return (

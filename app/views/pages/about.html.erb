@@ -1,0 +1,67 @@
+<header>
+  <div id="logo">
+    <span>About</span>
+  </div>
+</header>
+
+<div class="page" bp="container">
+  <div class="top-area">
+    <p>Discalendar is meant to help clans/guilds/friends/streamers schedule events. You can schedule raids and have your members RSVP. Streamers can put on their calendars when they're going to stream so their viewers know when they're on.</p>
+    <p>Discalendar is in beta mode right now, so there may be some bugs. But the very basics should be working.</p>
+    <p>If you have any features you'd like to see or are having problems, contact <span class="main-color">discalendarapp@gmail.com</span></p>
+  </div>
+  <div bp="grid">
+    <div bp="6">
+      <div class="page-widget-header">
+        <h2>List of Commands</h2>
+      </div>
+      <ul class="list-unstyled">
+        <li>
+          <strong>!create calendar</strong><br>
+          <span>
+            This is probably the first command you'll want to run.
+            <br>
+            It creates a calendar for the server.
+            <br>
+            <span class="alert-color">Only the owner of the server can create a calendar</span>
+          </span>
+        </li>
+        <li>
+          <strong>!join calendar</strong><br>
+          <span>
+            Join the calendar of the server you are in.
+            <br>
+            This does not happen by default, so if you are in a server that has a calendar, you will need to run this command to join the calendar.
+          </span>
+        </li>
+        <li>
+          <strong>
+            !create event "<span class="main-color">name</span>" "<span class="main-color">date</span>"
+          </strong>
+          <br>
+          <span>
+            Create event on the given calendar/server.
+            <br>
+            <span class="main-color">name</span>: Name of the event being created
+            <br>
+            <span class="main-color">date</span>: Datetime of the event
+            <br>
+            <i>Example => !create event "Raid" "02/24/2019 9:00PM CST"</i>
+            <br>
+            <span class="alert-color">Only the owner of the server can create an event</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div bp="6">
+      <div class="page-widget-header">
+        <h2>Events</h2>
+      </div>
+      <p>Things that happen when you interact with the Discalendar Bot.</p>
+      <strong>Reacting to an event</strong>
+      <br>
+      <span>When an event is created, the event is shown and the :white_check_mark: emoji will appear. When a user clicks on that emoji, they will be added as a participant of the event.</span>
+      <p>Similarly, if a user has reacted to the event and now wants to retract their reaction (by clicking on it again), the user will be removed from the event.</p>
+    </div>
+  </div>
+</div>

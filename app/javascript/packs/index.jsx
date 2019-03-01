@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <span>
                 Discalendar<b>Beta</b>
               </span>
+              <span className="pull-right"><a href="/about">About</a></span>
             </div>
           </header>
           <main>

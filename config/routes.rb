@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   root "calendars#index"
+  get "about", to: "pages#about", as: :about
   resources :calendars
   get "/auth/:provider/callback", to: "sessions#create"
 end
