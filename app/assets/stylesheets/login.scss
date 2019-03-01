@@ -40,7 +40,11 @@
   color: #b3b3b3;
   font-size: 12px;
 }
-.login-form .message a {
-  color: #7289da;
+
+a {
+  color: #f89406;
   text-decoration: none;
+  .discord-color {
+    color: #7289da;
+  }
 }
