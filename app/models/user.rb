@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :omniauthable,
          omniauth_providers: [:discord]
 
-  validates :username, uniqueness: true
+  validates :uid, uniqueness: true
+  validates :username, length: { in: 2..255, allow_nil: false }
   has_many :calendars
   has_many :participants
   has_many :events, through: :participants
@@ -14,6 +15,7 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     username = "#{auth.extra.raw_info.username}#{auth.extra.raw_info.discriminator}"
+    return if username.empty?
     user = where(uid: auth.uid).first_or_create
 
     attributes = {
