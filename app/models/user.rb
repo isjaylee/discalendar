@@ -15,13 +15,16 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     username = "#{auth.extra.raw_info.username}#{auth.extra.raw_info.discriminator}"
     user = where(uid: auth.uid).first_or_create
-    user.update_attributes(
+
+    attributes = {
       username: username,
-      email: auth.info.email,
+      email: (auth.info.email if auth.info.email.present?),
       name: auth.info.name,
       password: Devise.friendly_token[0, 20],
       provider: auth.provider
-    )
+    }
+
+    user.update_attributes(attributes)
     user
   end
 end
