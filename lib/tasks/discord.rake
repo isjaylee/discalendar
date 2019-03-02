@@ -1,11 +1,11 @@
 namespace :discord do
   task run: :environment do
-    # https://discordapp.com/oauth2/authorize?client_id=548951334775291936&scope=bot&permissions=448576
-    bot = Discordrb::Bot.new(token: "NTQ4OTUxMzM0Nzc1MjkxOTM2.D1Ro5Q.O9M06sm2jQaOGoi-zCujhrBnTh4")
+    # https://discordapp.com/oauth2/authorize?client_id=551367349689778187&scope=bot&permissions=448576
+    bot = Discordrb::Bot.new(token: "NTUxMzY3MzQ5Njg5Nzc4MTg3.D1v88A.KPKz9LpIhJuuCtMjh_XyrZrUHFw")
 
     WHITE_CHECK_MARK = "\u2705".force_encoding("utf-8").freeze
 
-    bot.message(start_with: "!create calendar") do |discord_event|
+    bot.message(start_with: "!discal create calendar") do |discord_event|
       if discord_event.user == discord_event.server.owner
         calendar = DiscordBot.new(
           discord_event.server.name,
@@ -25,7 +25,7 @@ namespace :discord do
       end
     end
 
-    bot.message(start_with: "!join calendar") do |discord_event|
+    bot.message(start_with: "!discal join calendar") do |discord_event|
       calendar = DiscordBot.new(
         discord_event.server.name,
         discord_event.server.id,
@@ -37,7 +37,7 @@ namespace :discord do
       discord_event.respond "You've joined the calendar!"
     end
 
-    bot.message(start_with: "!create event") do |discord_event|
+    bot.message(start_with: "!discal create event") do |discord_event|
       if discord_event.user == discord_event.server.owner
         info = ParseHelper.strings_in_quotes(discord_event.message.content)
         starting =
