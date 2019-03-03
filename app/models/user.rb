@@ -29,4 +29,8 @@ class User < ApplicationRecord
     user.update_attributes(attributes)
     user
   end
+
+  def events
+    Event.where(user: self)
+  end
 end

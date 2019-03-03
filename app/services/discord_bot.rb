@@ -23,8 +23,8 @@ class DiscordBot
     # !create event "Raid" "02/24/2019 9:00PM CST"
     info = content.scan(/"([^"]*)"/).flatten
     event_name = info[0]
-    starting = DateTime.strptime(info[1], '%m/%d/%Y %I:%M %p %Z')
-    ending = DateTime.strptime(info[2], '%m/%d/%Y %I:%M %p') if info[2]
+    starting = DateTime.strptime(info[1], "%m/%d/%Y %I:%M %p %Z")
+    ending = DateTime.strptime(info[2], "%m/%d/%Y %I:%M %p") if info[2]
 
     params = {
       user: user,
