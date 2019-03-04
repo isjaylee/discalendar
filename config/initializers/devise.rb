@@ -296,5 +296,7 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
-  config.omniauth :discord, "551367349689778187", "KoaukTXNcaoHmTUQ7fHUlNQOted8hCSg"
+  client_id = ENV["DISCORD_CLIENT_ID"] || ENV["DISCORD_CLIENT_ID_TEST"]
+  client_secret = ENV["DISCORD_CLIENT_SECRET"] || ENV["DISCORD_CLIENT_SECRET_TEST"]
+  config.omniauth :discord, client_id, client_secret
 end

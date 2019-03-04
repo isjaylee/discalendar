@@ -1,7 +1,8 @@
 namespace :discord do
   task run: :environment do
-    # https://discordapp.com/oauth2/authorize?client_id=551367349689778187&scope=bot&permissions=448576
-    bot = Discordrb::Bot.new(token: "NTUxMzY3MzQ5Njg5Nzc4MTg3.D1v88A.KPKz9LpIhJuuCtMjh_XyrZrUHFw")
+    # https://discordapp.com/oauth2/authorize?client_id=551973378475556864&scope=bot&permissions=448576
+    token = ENV["DISCORD_TOKEN"] || ENV["DISCORD_TOKEN_TEST"]
+    bot = Discordrb::Bot.new(token: token)
 
     WHITE_CHECK_MARK = "\u2705".force_encoding("utf-8").freeze
 
