@@ -67,6 +67,38 @@ namespace :discord do
       end
     end
 
+    bot.message(start_with: "!discal edit event") do |discord_event|
+      if discord_event.user == discord_event.server.owner
+        content = ParseHelper.strings_in_quotes(discord_event.message.content)
+        event = Event.find_by(discord_message_identifier: content[0])
+        starting =
+          DateTime.strptime(content[2], '%m/%d/%Y %I:%M %p %Z')
+          .in_time_zone("Central Time (US & Canada)")
+          .strftime("%B %d, %Y at %l:%M%p Central")
+
+        fields = [
+          Discordrb::Webhooks::EmbedField.new(name: "Old Event Name", value: event.name),
+          Discordrb::Webhooks::EmbedField.new(name: "New Event Name", value: content[1]),
+          Discordrb::Webhooks::EmbedField.new(name: "Starting", value: starting)
+        ]
+
+        DiscordBot.new(
+          discord_event.server.name,
+          discord_event.server.id,
+          discord_event.user.username,
+          discord_event.user.id,
+          discord_event.user.discriminator
+        ).edit_event(content)
+
+        embed = Discordrb::Webhooks::Embed.new(colour: "#69BB2D", fields: fields)
+        message = discord_event.respond("An event has been updated!", false, embed)
+
+        Discordrb::API::Channel.create_reaction(bot.token, message.channel.id, message.id, WHITE_CHECK_MARK)
+      else
+        discord_event.respond "Only the owner of the server can edit an event."
+      end
+    end
+
     bot.reaction_add(emoji: WHITE_CHECK_MARK) do |discord_event|
       event = Event.where(discord_message_identifier: discord_event.message.id)
       if event

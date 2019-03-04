@@ -10,7 +10,7 @@ class DiscordBot
   end
 
   def create_calendar
-    # !create calendar
+    # !discal create calendar
     user.calendars.new(name: @server_name, discord_identifier: @server_id)
   end
 
@@ -20,7 +20,7 @@ class DiscordBot
   end
 
   def create_event(discord_message_id, content)
-    # !create event "Raid" "02/24/2019 9:00PM CST"
+    # !discal create event "Raid" "02/24/2019 9:00PM CST"
     info = content.scan(/"([^"]*)"/).flatten
     event_name = info[0]
     starting = DateTime.strptime(info[1], "%m/%d/%Y %I:%M %p %Z")
@@ -35,6 +35,22 @@ class DiscordBot
     }
 
     calendar.events.create(params)
+  end
+
+  def edit_event(content)
+    # !discal edit event "551975730347507715" "Nightall" "02/24/2019 9:00PM CST"
+    discord_message_id = content[0]
+    event = Event.find_by(discord_message_identifier: discord_message_id)
+    event_name = content[1]
+    starting = DateTime.strptime(content[2], "%m/%d/%Y %I:%M %p %Z") if content[2]
+    ending = DateTime.strptime(content[3], "%m/%d/%Y %I:%M %p") if content[3]
+
+    params = {
+      name: event_name,
+      starting: starting
+    }
+
+    event.update_attributes(name: event_name, starting: starting)
   end
 
   def create_participant(discord_message_id)
