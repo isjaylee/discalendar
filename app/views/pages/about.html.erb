@@ -58,13 +58,32 @@
           <span>
             Create event on the given calendar/server.
             <br>
-            <span class="main-color">name</span>: Name of the event being created
+            <span class="main-color">name</span>: Name of the event being created.
             <br>
-            <span class="main-color">date</span>: Datetime of the event
+            <span class="main-color">date</span>: Datetime of the event.
             <br>
             <i>Example => !discal create event "Raid" "02/24/2019 9:00PM CST"</i>
             <br>
             <span class="alert-color">Only the owner of the server can create an event</span>
+          </span>
+        </li>
+        <li>
+          <strong>
+            !discal edit event "<span class="main-color">message_id</span>" "<span class="main-color">name</span>" "<span class="main-color">date</span>"
+          </strong>
+          <br>
+          <span>
+            Edit an existing event.
+            <br>
+            <span class="main-color">message_id</span>: ID of the message the Discalendar Bot created after you typed in your command. Enable Appearance > Developer Mode in your user settings. Then right click the message Discalendar Bot created and "Copy ID".
+            <br>
+            <span class="main-color">name</span>: New name for the event.
+            <br>
+            <span class="main-color">date</span>: New datetime of the event.
+            <br>
+            <i>Example => !discal edit event "1234567" "Nightfall" "02/24/2019 10:00PM CST"</i>
+            <br>
+            <span class="alert-color">Only the owner of the server can edit an event</span>
           </span>
         </li>
       </ul>
