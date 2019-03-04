@@ -1,0 +1,4 @@
+acme:
+  id: 1
+  name: "Acme Server"
+  discord_identifier: "1234"
