@@ -115,6 +115,32 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
       end
     end
 
+    bot.message(start_with: "!discal delete event") do |discord_event|
+      if discord_event.user == discord_event.server.owner
+        content = ParseHelper.strings_in_quotes(discord_event.message.content)
+        message_id = content[0]
+        event = Event.find_by(discord_message_identifier: message_id)
+        event_name = event.name
+        starting =
+          event.starting
+          .in_time_zone("Central Time (US & Canada)")
+          .strftime("%B %d, %Y at %l:%M%p Central")
+
+        DiscordBot.new(
+          discord_event.server.name,
+          discord_event.server.id,
+          discord_event.user.username,
+          discord_event.user.id,
+          discord_event.user.discriminator
+        ).delete_event(event.discord_message_identifier)
+
+        Discordrb::API::Channel.delete_message(bot.token, discord_event.channel.id, message_id)
+        discord_event.respond "The #{event_name} event happening at #{starting} has been cancelled."
+      else
+        discord_event.respond "Only the owner of the server can edit an event."
+      end
+    end
+
     bot.reaction_add(emoji: WHITE_CHECK_MARK) do |discord_event|
       event = Event.where(discord_message_identifier: discord_event.message.id)
       if event

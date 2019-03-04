@@ -53,6 +53,11 @@ class DiscordBot
     event.update_attributes(name: event_name, starting: starting)
   end
 
+  def delete_event(discord_message_id)
+    event = Event.find_by(discord_message_identifier: discord_message_id)
+    event.destroy
+  end
+
   def create_participant(discord_message_id)
     event = get_event(discord_message_id)
     event.users << user unless event.users.include?(user)
