@@ -6,6 +6,21 @@ namespace :discord do
 
     WHITE_CHECK_MARK = "\u2705".force_encoding("utf-8").freeze
 
+    bot.message(start_with: "!discal help") do |discord_event|
+      fields = [
+        Discordrb::Webhooks::EmbedField.new(name: "!discal create calendar", value: "This is probably the first command you'll want to run. It creates a calendar for the server. Only the owner of the server can create a calendar"),
+        Discordrb::Webhooks::EmbedField.new(name: "!discal join calendar", value: "Join the calendar of the server you are in. This does not happen by default, so if you are in a server that has a calendar, you will need to run this command to join the calendar."),
+        Discordrb::Webhooks::EmbedField.new(name: "!discal create event \"name\" \"date\"", value: "Create event on the given calendar/server. Example: !discal create event \"Raid\" \"02/24/2019 9:00PM CST\""),
+        Discordrb::Webhooks::EmbedField.new(name: "!discal edit event \"message_id\" \"name\" \"date\" ", value: "Edit an existing event. Example: !discal edit event \"1234567\" \"Nightfall\" \"02/24/2019 10:00PM CST\" "),
+        Discordrb::Webhooks::EmbedField.new(name: "Reacting to an event", value: "When an event is created, the event is shown and the :white_check_mark: emoji will appear. When a user clicks on that emoji, they will be added as a participant of the event.
+Similarly, if a user has reacted to the event and now wants to retract their reaction (by clicking on it again), the user will be removed from the event.")
+      ]
+
+      embed = Discordrb::Webhooks::Embed.new(colour: "#69BB2D", fields: fields)
+      message = "Commands are below. For more information, please visit https://www.discalendar.com/about"
+      message = discord_event.respond(message, false, embed)
+    end
+
     bot.message(start_with: "!discal create calendar") do |discord_event|
       if discord_event.user == discord_event.server.owner
         calendar = DiscordBot.new(
