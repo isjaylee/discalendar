@@ -67,7 +67,7 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
         ]
 
         embed = Discordrb::Webhooks::Embed.new(colour: "#69BB2D", fields: fields)
-        message = discord_event.respond("#{info[0]} event created!", false, embed)
+        message = discord_event.respond("#{info[0]} event created! Click on the green checkmark to RSVP.", false, embed)
 
         DiscordBot.new(
           discord_event.server.name,
