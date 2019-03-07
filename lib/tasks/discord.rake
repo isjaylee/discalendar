@@ -56,14 +56,20 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
     bot.message(start_with: "!discal create event") do |discord_event|
       if discord_event.user == discord_event.server.owner
         info = ParseHelper.strings_in_quotes(discord_event.message.content)
-        starting =
-          DateTime.strptime(info[1], '%m/%d/%Y %I:%M %p %Z')
+        starting_date = DateTime.strptime(info[1], '%m/%d/%Y %I:%M %p %Z')
+
+        if !(starting_date >= Time.now && starting_date < Time.now + 3.months)
+          discord_event.respond "Events can only be created in the future and cannot be more than 3 months from now."
+        end
+
+        starting_message =
+          starting_date
           .in_time_zone("Central Time (US & Canada)")
           .strftime("%B %d, %Y at %l:%M%p Central")
 
         fields = [
           Discordrb::Webhooks::EmbedField.new(name: "Event", value: info[0]),
-          Discordrb::Webhooks::EmbedField.new(name: "Starting", value: starting)
+          Discordrb::Webhooks::EmbedField.new(name: "Starting", value: starting_message)
         ]
 
         embed = Discordrb::Webhooks::Embed.new(colour: "#69BB2D", fields: fields)
