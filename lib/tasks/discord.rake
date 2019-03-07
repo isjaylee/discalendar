@@ -67,9 +67,9 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
         ]
 
         embed = Discordrb::Webhooks::Embed.new(colour: "#69BB2D", fields: fields)
-        message = discord_event.respond("#{info[0]} event created! Click on the green checkmark to RSVP.", false, embed)
+        message = discord_event.respond("#{info[0]} event created! Click on the white checkmark to RSVP.", false, embed)
 
-        DiscordBot.new(
+        event = DiscordBot.new(
           discord_event.server.name,
           discord_event.server.id,
           discord_event.user.username,
@@ -78,6 +78,7 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
         ).create_event(message.id, discord_event.message.content)
 
         Discordrb::API::Channel.create_reaction(bot.token, message.channel.id, message.id, WHITE_CHECK_MARK)
+        EventNotificationJob.set(wait_until: event.starting - 10.minutes).perform_later(bot.token, message.channel.id, event.id)
       else
         discord_event.respond "Only the owner of the server can create an event."
       end

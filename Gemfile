@@ -17,6 +17,7 @@ gem 'http'
 gem 'fast_jsonapi'
 gem 'discordrb'
 gem 'rollbar'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'pry'
