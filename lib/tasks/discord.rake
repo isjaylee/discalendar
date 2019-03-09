@@ -60,6 +60,7 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
 
         if !(starting_date >= Time.now && starting_date < Time.now + 3.months)
           discord_event.respond "Events can only be created in the future and cannot be more than 3 months from now."
+          next
         end
 
         starting_message =
