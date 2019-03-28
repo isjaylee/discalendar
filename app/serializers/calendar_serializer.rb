@@ -3,6 +3,6 @@ class CalendarSerializer
   attributes :id, :name
 
   attribute :events do |calendar|
-    calendar.events.map {|event| EventSerializer.new(event) }
+    calendar.events.order(:starting, starting: :desc).map {|event| EventSerializer.new(event) }
   end
 end
