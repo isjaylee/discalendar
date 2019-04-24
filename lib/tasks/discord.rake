@@ -54,7 +54,7 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
     end
 
     bot.message(start_with: "!discal create event") do |discord_event|
-      if discord_event.user == discord_event.server.owner
+      if discord_event.user.permission?(:manage_server, discord_event.channel)
         info = ParseHelper.strings_in_quotes(discord_event.message.content)
         starting_date = DateTime.strptime(info[1], '%m/%d/%Y %I:%M %p %Z')
 
@@ -87,12 +87,12 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
         Discordrb::API::Channel.create_reaction(bot.token, message.channel.id, message.id, WHITE_CHECK_MARK)
         EventNotificationJob.set(wait_until: event.starting - 10.minutes).perform_later(bot.token, message.channel.id, event.id)
       else
-        discord_event.respond "Only the owner of the server can create an event."
+        discord_event.respond "Only the server managers can create an event."
       end
     end
 
     bot.message(start_with: "!discal edit event") do |discord_event|
-      if discord_event.user == discord_event.server.owner
+      if discord_event.user.permission?(:manage_server, discord_event.channel)
         content = ParseHelper.strings_in_quotes(discord_event.message.content)
         event = Event.find_by(discord_message_identifier: content[0])
         starting =
@@ -119,12 +119,12 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
 
         Discordrb::API::Channel.create_reaction(bot.token, message.channel.id, message.id, WHITE_CHECK_MARK)
       else
-        discord_event.respond "Only the owner of the server can edit an event."
+        discord_event.respond "Only server managers can edit an event."
       end
     end
 
     bot.message(start_with: "!discal delete event") do |discord_event|
-      if discord_event.user == discord_event.server.owner
+      if discord_event.user.permission?(:manage_server, discord_event.channel)
         content = ParseHelper.strings_in_quotes(discord_event.message.content)
         message_id = content[0]
         event = Event.find_by(discord_message_identifier: message_id)
@@ -145,7 +145,7 @@ Similarly, if a user has reacted to the event and now wants to retract their rea
         Discordrb::API::Channel.delete_message(bot.token, discord_event.channel.id, message_id)
         discord_event.respond "The #{event_name} event happening at #{starting} has been cancelled."
       else
-        discord_event.respond "Only the owner of the server can edit an event."
+        discord_event.respond "Only server managers can delete an event."
       end
     end
 
