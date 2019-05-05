@@ -6,6 +6,11 @@ namespace :discord do
 
     WHITE_CHECK_MARK = "\u2705".force_encoding("utf-8").freeze
 
+    bot.message(start_with: "!discal servers") do |discord_event|
+      server_count = bot.servers.keys.count
+      discord_event.respond("The bot is currently installed on #{server_count} servers.")
+    end
+
     bot.message(start_with: "!discal help") do |discord_event|
       fields = [
         Discordrb::Webhooks::EmbedField.new(name: "!discal create calendar", value: "This is probably the first command you'll want to run. It creates a calendar for the server. Only the owner of the server can create a calendar"),
