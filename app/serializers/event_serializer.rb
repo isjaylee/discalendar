@@ -1,6 +1,6 @@
 class EventSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :name, :location, :starting, :ending
+  attributes :name, :location, :starting, :ending, :discord_message_identifier
 
   attribute :calendar do |event|
     event.calendar

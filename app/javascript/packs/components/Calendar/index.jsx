@@ -140,6 +140,8 @@ class Calendar extends React.Component {
               <div key={event.data.id}>
                 <p>
                   <strong>{attrs.name} at {time}</strong> - <small>{attrs.calendar.name}</small>
+                  <br />
+                  <small>Event ID: {attrs.discord_message_identifier}</small>
                 </p>
                 <p>
                   Going: {participantList}
