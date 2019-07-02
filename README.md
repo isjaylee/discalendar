@@ -1,24 +1,18 @@
-# README
+# Discalendar
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A Discord bot to help manage events. Commands and any maintenance are all done
+within Discord.
 
-Things you may want to cover:
+Tech stack:
 
-* Ruby version
+* Ruby 2.6.1
 
-* System dependencies
+* Rails 5.2
 
-* Configuration
+* Postgres for database
 
-* Database creation
+* Sidekiq for queuing the notifications of when an event is going to start
 
-* Database initialization
+* React for the frontend (using webpacker)
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Discordrb for Discord API
