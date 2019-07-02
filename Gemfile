@@ -9,7 +9,6 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'webpacker'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'webpacker'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-oauth2'
