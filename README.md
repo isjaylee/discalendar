@@ -16,3 +16,8 @@ Tech stack:
 * React for the frontend (using webpacker)
 
 * Discordrb for Discord API
+
+## Files of special interest
+
+Look at `discord.rake` and `discord_bot.rb` files for where most of the work
+is being done.
